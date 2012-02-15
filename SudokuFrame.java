@@ -14,12 +14,7 @@ public class SudokuFrame extends JFrame{
 	JMenu fileMenu = new JMenu("File");
 	menubar.add(fileMenu);
 	JMenuItem exitAction = fileMenu.add("Exit");
-	exitAction.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		    System.exit(0);
-		}
-	    });
-
+	exitAction.addActionListener(new ExitActionListener(0));
     }
 
     public SudokuFrame(String title) {
@@ -123,7 +118,7 @@ class SudokuHelpDialog extends JDialog {
 	this.setLocation(p.x+100, p.y+100);
 	this.setLocationByPlatform(true);
 	this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	this.setLayout(new GridLayout(3,1));
+	this.setLayout(new GridLayout(4,1));
 	JLabel label[] = new JLabel[3];
 	label[0] = new JLabel("  * Left Click, Scroll Up: Increase Number");
 	label[1] = new JLabel("  * Right Click, Scroll Down: Decrease Number");
@@ -131,5 +126,13 @@ class SudokuHelpDialog extends JDialog {
 	this.add(label[0]);
 	this.add(label[1]);
 	this.add(label[2]);
+
+	JPanel panel = new JPanel();
+	panel.setLayout(new FlowLayout());
+	this.add(panel);
+	JButton closeButton = new JButton("Close");
+	panel.add(closeButton);
+	closeButton.addActionListener(new DisposeActionListener(this));
+
     }
-}
+}	
