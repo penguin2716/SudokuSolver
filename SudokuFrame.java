@@ -118,16 +118,16 @@ class HelpButton extends JButton implements ActionListener {
 class SudokuHelpDialog extends JDialog {
     public SudokuHelpDialog(Frame f, String title) {
 	super(f, title);
-	this.setSize(300,200);
+	this.setSize(350,200);
 	Point p = f.getLocation();
 	this.setLocation(p.x+100, p.y+100);
 	this.setLocationByPlatform(true);
 	this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	this.setLayout(new GridLayout(3,1));
 	JLabel label[] = new JLabel[3];
-	label[0] = new JLabel("* Left Click, Scroll Up: Increase");
-	label[1] = new JLabel("* Right Click, Scroll Down: Decrease");
-	label[2] = new JLabel("* Middle Click: Clear");
+	label[0] = new JLabel("  * Left Click, Scroll Up: Increase Number");
+	label[1] = new JLabel("  * Right Click, Scroll Down: Decrease Number");
+	label[2] = new JLabel("  * Middle Click: Clear Cell");
 	this.add(label[0]);
 	this.add(label[1]);
 	this.add(label[2]);
