@@ -17,7 +17,7 @@ jar: all
 .PHONY: clean distclean run
 
 clean:
-	rm -rf *~
+	rm -rf *~ $(SRCDIR)/*~
 
 distclean: clean
 	rm -rf $(SRCDIR)/*.class $(JAR)
