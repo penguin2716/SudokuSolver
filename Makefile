@@ -1,18 +1,16 @@
 SRCDIR = ./src
 SOURCE = $(shell ls $(SRCDIR)/*.java)
 MANIFEST = MANIFEST.MF
+TARGETCLASS = $(SRCDIR)/Sudoku.class
 JAR = SudokuSolver.jar
 
-all: Sudoku.class
+all: jar
 
-Sudoku.class: $(SOURCE)
-	javac $(SOURCE)
+$(TARGETCLASS): $(SOURCE)
+	javac $(SRCDIR)/*.java
 
-.java.class:
-	javac $<
-
-jar: all
-	jar cfm $(JAR) $(MANIFEST) $(SOURCE) $(SRCDIR)/*.class
+jar: $(TARGETCLASS)
+	jar cfm $(JAR) $(MANIFEST) $(SRCDIR)/*.java $(SRCDIR)/*.class
 
 .PHONY: clean distclean run
 
@@ -22,5 +20,5 @@ clean:
 distclean: clean
 	rm -rf $(SRCDIR)/*.class $(JAR)
 
-run: Sudoku.class
-	java Sudoku
+run: jar
+	java -jar $(JAR)
