@@ -6,6 +6,7 @@ public class SudokuFrame extends JFrame{
 
     public static int SIZE = 9;
     public static int BOX = 3;
+    public final static int SAVE_MAX = 12;
     private final NumberButton button[][] = new NumberButton[SIZE][SIZE];
 
     private void makeMenuBar() {
@@ -19,12 +20,21 @@ public class SudokuFrame extends JFrame{
 
     public SudokuFrame(String title) {
 	super(title);
-	this.setSize(500,550);
+	this.setSize(800,620);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setLayout(new BorderLayout());
 	this.setLocationByPlatform(true);
 
 	makeMenuBar();
+
+	JPanel savePanelArea = new JPanel();
+	this.add(savePanelArea, BorderLayout.EAST);
+	savePanelArea.setLayout(new GridLayout(SAVE_MAX,1));
+	SavePanel savePanel[] = new SavePanel[SAVE_MAX];
+	for(int i=0; i<SAVE_MAX; i++) {
+	    savePanel[i] = new SavePanel(button);
+	    savePanelArea.add(savePanel[i]);
+	}
 
 	JPanel mainPanel = new JPanel();
 	add(mainPanel, BorderLayout.CENTER);
