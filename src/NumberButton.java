@@ -6,13 +6,14 @@ public class NumberButton extends JButton implements MouseListener, MouseWheelLi
     private int Number;
     public NumberButton() {
 	super();
+	setForeground(Color.black);
 	setFont(new Font("Arial", Font.BOLD, 30));
 	setNumber(0);
 	this.addMouseListener(this);
 	this.addMouseWheelListener(this);
     }
 
-    public void setNumber(int num) {
+    public void setNumber(int num, boolean complete) {
 	if(num >= 0 && num < 10) {
 	    Number = num;
 	}
@@ -22,20 +23,36 @@ public class NumberButton extends JButton implements MouseListener, MouseWheelLi
 	else {
 	    setText(Integer.toString(Number));
 	}
+	if(complete == true) {
+	    setForeground(Color.red);
+	}
+	else {
+	    setForeground(Color.black);
+	}
     }
+
+    public void setNumber(int num) {
+	setNumber(num, false);
+    }
+
+    public void resetColor() {
+	setForeground(Color.black);
+    }
+
     public int getNumber() {
 	return Number;
     }
 
     public void clear() {
 	setNumber(0);
+	setForeground(Color.black);
     }
 
     public void incrementNumber() {
-	setNumber((Number+1)%10);
+	setNumber((Number+1)%10, false);
     }
     public void decrementNumber() {
-	setNumber((Number+9)%10);
+	setNumber((Number+9)%10, false);
     }
     public void mouseWheelMoved(MouseWheelEvent e) {
 	if(e.getWheelRotation() < 0) {
@@ -54,7 +71,7 @@ public class NumberButton extends JButton implements MouseListener, MouseWheelLi
 	    decrementNumber();
 	    break;
 	case MouseEvent.BUTTON2:
-	    setNumber(0);
+	    clear();
 	    break;
 	default:
 	}

@@ -17,7 +17,7 @@ public class SudokuSolver {
 	    loop++;
 	    copyMatrix(matrix, prevmat);
 	    for(int i=1; i<=SIZE; i++){
-		if(isCompleted(matrix) == false) {
+		if(isFilledOut(matrix) == false) {
 		    complementMatrix(matrix, vmat, i);
 		}
 	    }
@@ -258,12 +258,77 @@ public class SudokuSolver {
     }
 
 
-    private boolean isCompleted(int matrix[][])
+    private boolean isFilledOut(int matrix[][])
     {
 	for(int y=0; y<SIZE; y++) {
 	    for(int x=0; x<SIZE; x++) {
 		if(matrix[y][x] == BLANK) {
 		    return false;
+		}
+	    }
+	}
+
+	return true;
+    }
+
+    public boolean isCompleted(int matrix[][]) {
+	if(isFilledOut(matrix) == false) {
+	    return false;
+	}
+
+	int template[] = new int[SIZE];
+
+	// check horizontal lines
+	for(int y=0; y<SIZE; y++) {
+	    // initialize
+	    for(int i=0; i<SIZE; i++) {
+		template[i] = ERROR;
+	    }
+	    // check
+	    for(int i=0; i<SIZE; i++) {
+		template[matrix[y][i]-1] = BLANK;
+	    }
+	    // comfirm
+	    for(int i=0; i<SIZE; i++) {
+		if(template[i] == ERROR) {
+		    return false;
+		}
+	    }
+	}
+
+	// check vertical lines
+	for(int x=0; x<SIZE; x++) {
+	    // initialize
+	    for(int i=0; i<SIZE; i++) {
+		template[i] = ERROR;
+	    }
+	    // check
+	    for(int i=0; i<SIZE; i++) {
+		template[matrix[i][x]-1] = BLANK;
+	    }
+	    // comfirm
+	    for(int i=0; i<SIZE; i++) {
+		if(template[i] == ERROR) {
+		    return false;
+		}
+	    }
+	}
+
+	// check each boxes
+	for(int y=0; y<SIZE; y+=3) {
+	    for(int x=0; x<SIZE; x+=3) {
+		for(int i=0; i<SIZE; i++) {
+		    template[i] = ERROR;
+		}
+		for(int dy=0; dy<BOXES; dy++) {
+		    for(int dx=0; dx<BOXES; dx++) {
+			template[matrix[y+dy][x+dx]-1] = BLANK;
+		    }
+		}
+		for(int i=0; i<SIZE; i++) {
+		    if(template[i] == ERROR) {
+			return false;
+		    }
 		}
 	    }
 	}

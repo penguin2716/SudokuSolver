@@ -93,9 +93,10 @@ public class SudokuFrame extends JFrame{
 			}
 		    }
 		    solver.solve(matrix);
+		    boolean complete = solver.isCompleted(matrix);
 		    for(int y=0; y<SIZE; y++) {
 			for(int x=0; x<SIZE; x++) {
-			    button[y][x].setNumber(matrix[y][x]);
+			    button[y][x].setNumber(matrix[y][x], complete);
 			}
 		    }
 
